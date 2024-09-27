@@ -1,0 +1,43 @@
+---
+galaxy_info:
+  author: Daniel Gibbs
+  company: none
+  description: An Ansible role that installs and configures Amazon SSM agent.
+  license: MIT
+  min_ansible_version: "2.16"
+  namespace: dgibbs64
+  role_name: amazon_ssm_agent
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - "noble"
+        - "jammy"
+        - "focal"
+    - name: Debian
+      versions:
+        - "bookworm"
+        - "bullseye"
+    - name: EL
+      versions:
+        - "9"
+        - "8"
+    - name: Fedora
+      versions:
+        - "40"
+        - "39"
+    - name: opensuse
+      versions:
+        - "15.5"
+    - name: Amazon Linux
+      versions:
+        - "2023"
+
+  galaxy_tags:
+    - netdata
+    - system
+    - monitoring
+    - metrics
+    - performance
+
+dependencies: []

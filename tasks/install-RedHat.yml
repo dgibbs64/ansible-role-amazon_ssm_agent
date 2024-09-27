@@ -1,0 +1,72 @@
+---
+- name: "Ensure Python 3 is installed"
+  ansible.builtin.dnf:
+    name: "python3"
+    state: "present"
+
+- name: "Gather installed package facts"
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "Set URL architecture"
+  ansible.builtin.set_fact:
+    url_architecture: "{{ ('amd64' if ansible_architecture == 'x86_64' else 'arm64' if ansible_architecture == 'aarch64' else 'unknown') | string | trim }}"
+
+- name: "Display URL architecture"
+  ansible.builtin.debug:
+    var: url_architecture
+
+- name: "Check current crypto policy"
+  ansible.builtin.command:
+    cmd: "update-crypto-policies --show"
+  changed_when: false
+  register: crypto_policy
+
+- name: "Set crypto policy to DEFAULT:SHA1 if not set"
+  ansible.builtin.command:
+    cmd: "update-crypto-policies --set DEFAULT:SHA1"
+  when: "'DEFAULT:SHA1' not in crypto_policy.stdout"
+
+- name: "Copy amazon-ssm-agent GPG key to target machine"
+  ansible.builtin.copy:
+    src: "amazon-ssm-agent.gpg"
+    dest: "/tmp/amazon-ssm-agent.gpg"
+    mode: "0644"
+  when:
+    - "'amazon-ssm-agent' not in ansible_facts.packages"
+
+- name: "Import amazon-ssm-agent GPG key"
+  ansible.builtin.rpm_key:
+    state: present
+    key: "/tmp/amazon-ssm-agent.gpg"
+  when:
+    - "'amazon-ssm-agent' not in ansible_facts.packages"
+
+- name: "Download amazon-ssm-agent RPM"
+  ansible.builtin.get_url:
+    url: "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_{{ url_architecture }}/amazon-ssm-agent.rpm"
+    dest: "/tmp/amazon-ssm-agent.rpm"
+    mode: "0644"
+  when:
+    - "'amazon-ssm-agent' not in ansible_facts.packages"
+    - url_architecture != "unknown"
+
+- name: "Ensure amazon-ssm-agent is installed from URL"
+  ansible.builtin.dnf:
+    name: "/tmp/amazon-ssm-agent.rpm"
+    state: present
+  when:
+    - "'amazon-ssm-agent' not in ansible_facts.packages"
+    - url_architecture != "unknown"
+
+- name: "Ensure amazon-ssm-agent is installed"
+  ansible.builtin.dnf:
+    name: "amazon-ssm-agent"
+    state: "present"
+  notify:
+    - "Enable amazon-ssm-agent"
+  when:
+    - "'amazon-ssm-agent' not in ansible_facts.packages"
+
+- name: "Flush handlers"
+  ansible.builtin.meta: flush_handlers

@@ -1,0 +1,14 @@
+---
+- name: "Ensure Python 3 is installed"
+  ansible.builtin.apt:
+    name: "python3"
+    state: "present"
+
+- name: "Ensure ssm-agent is installed (apt)"
+  ansible.builtin.apt:
+    deb: "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_{{ url_architecture }}}/amazon-ssm-agent.deb"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  notify:
+    - "Enable amazon-ssm-agent"
