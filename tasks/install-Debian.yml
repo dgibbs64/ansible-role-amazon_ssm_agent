@@ -4,11 +4,23 @@
     name: "python3"
     state: "present"
 
+- name: "Gather installed package facts"
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "Set URL architecture"
+  ansible.builtin.set_fact:
+    url_architecture: "{{ ('amd64' if ansible_architecture == 'x86_64' else 'arm64' if ansible_architecture == 'aarch64' else 'unknown') | string | trim }}"
+
 - name: "Ensure ssm-agent is installed (apt)"
   ansible.builtin.apt:
-    deb: "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_{{ url_architecture }}}/amazon-ssm-agent.deb"
+    deb: "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_{{ url_architecture }}/amazon-ssm-agent.deb"
     state: present
     update_cache: true
     cache_valid_time: 3600
+  when: "'amazon-ssm-agent' not in ansible_facts.packages"
   notify:
     - "Enable amazon-ssm-agent"
+
+- name: "Flush handlers"
+  ansible.builtin.meta: flush_handlers

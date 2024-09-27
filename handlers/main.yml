@@ -3,6 +3,12 @@
 - name: "Enable amazon-ssm-agent"
   become: true
   ansible.builtin.systemd:
-    name: "mdatp"
+    name: "amazon-ssm-agent"
+    enabled: true
+    state: started
+
+- name: "Enable amazon-ssm-agent snap"
+  ansible.builtin.systemd:
+    name: snap.amazon-ssm-agent.amazon-ssm-agent.service
     enabled: true
     state: started

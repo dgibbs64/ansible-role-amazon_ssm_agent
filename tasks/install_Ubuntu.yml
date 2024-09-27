@@ -1,0 +1,14 @@
+---
+# tasks file for installing software on Ubuntu using snaps
+
+- name: "Ensure snapd is installed"
+  ansible.builtin.apt:
+    name: snapd
+    state: present
+
+- name: "Ensure amazon-ssm-agent is installed (snap)"
+  commnity.general.snap:
+    name: amazon-ssm-agent
+    state: present
+    classic: true
+  notify: "Enable amazon-ssm-agent snap"
