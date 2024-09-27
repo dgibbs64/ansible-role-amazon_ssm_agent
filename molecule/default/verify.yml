@@ -13,13 +13,3 @@
       block:
         - name: "Get service facts"
           ansible.builtin.service_facts:
-
-        # - name: "Check mdatp service is started"
-        #   ansible.builtin.fail:
-        #     msg: "mdatp service is not started"
-        #   when: "'mdatp' in services and services['mdatp']['state'] != 'running'"
-
-        # - name: "Check mdatp service is enabled"
-        #   ansible.builtin.fail:
-        #     msg: "mdatp service is not enabled"
-        #   when: "'mdatp' in services and services['mdatp.service']['status'] != 'enabled'"
