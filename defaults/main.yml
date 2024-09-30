@@ -1,3 +1,5 @@
 ---
 # defaults file for amazon_ssm_agent
+
+# Amazon SSM Agent state present|absent
 amazon_ssm_agent_state: "present"
