@@ -1,5 +1,6 @@
 ---
 # handlers file for amazon_ssm_agent
+
 - name: "Enable amazon-ssm-agent"
   become: true
   ansible.builtin.systemd:
