@@ -1,6 +1,6 @@
 # amazon_ssm_agent
 
-An [Ansible](https://www.ansible.com) role that installs and configures the <a href="https://aws.amazon.com/ssm/">Amazon SSM Agent</a> for managing EC2 instances.
+An [Ansible](https://www.ansible.com) role that installs and configures the <a href="https://docs.aws.amazon.com/systems-manager/">Amazon SSM Agent</a> for managing EC2 instances.
 
 <p align="center">
 <a href="https://app.codacy.com/gh/dgibbs64/ansible-role-amazon_ssm_agent"><img src="https://img.shields.io/codacy/grade/1a892d499efd4dabb73beffa8d64ed01?logo=codacy&style=flat-square" alt="Codacy grade"></a>
@@ -27,8 +27,7 @@ Requires an AWS account to use the Amazon SSM features.
 - AmazonLinux 2023
 - CentOS >= 8
 - Debian >= 10
-- Fedora >= 29
-- openSUSE >= 15.4
+- Fedora >= 39
 - OracleLinux >= 8
 - Redhat Enterprise Linux >= 8
 - Rocky Linux >= 8

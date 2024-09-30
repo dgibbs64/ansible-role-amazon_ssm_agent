@@ -1,0 +1,21 @@
+---
+- name: Remove amazon-ssm-agent (apt)
+  ansible.builtin.apt:
+    name: amazon-ssm-agent
+    state: absent
+  when: ansible_facts['os_family'] == "Debian"
+  tags: amazon_ssm_agent_remove
+
+- name: Remove amazon-ssm-agent (dnf)
+  ansible.builtin.dnf:
+    name: amazon-ssm-agent
+    state: absent
+  when: ansible_facts['os_family'] == "RedHat" and ansible_facts['distribution_major_version'] >= "8"
+  tags: amazon_ssm_agent_remove
+
+- name: Remove amazon-ssm-agent (snap)
+  community.general.snap:
+    name: amazon-ssm-agent
+    state: absent
+  when: ansible_facts['distribution'] == "Ubuntu"
+  tags: amazon_ssm_agent_remove

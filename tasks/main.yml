@@ -11,7 +11,11 @@
 - name: "Become block"
   become: true
   block:
-    - name: "Install  (Ubuntu)"
+    - name: "Remove"
+      ansible.builtin.include_tasks: remove.yml
+      when: amazon_ssm_agent_state == "absent"
+
+    - name: "Install (Ubuntu)"
       ansible.builtin.include_tasks: install-Ubuntu.yml
       when: ansible_distribution == "Ubuntu"
 
@@ -22,3 +26,5 @@
     - name: "Install (RedHat Family)"
       ansible.builtin.include_tasks: install-RedHat.yml
       when: ansible_os_family == "RedHat"
+
+
