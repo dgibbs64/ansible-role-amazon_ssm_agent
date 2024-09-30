@@ -13,7 +13,7 @@
     url_architecture: "{{ ('amd64' if ansible_architecture == 'x86_64' else 'arm64' if ansible_architecture == 'aarch64' else 'unknown') | string | trim }}"
 
 - name: "Crypto policy"
-  when: ansible_distribution_major_version is version('9', '>=') and ansible_distribution != "Amazon" and ansible_distribution_version != "2023"
+  when: ansible_distribution_major_version is version('9', '>=') and ansible_distribution != "Amazon" and ansible_distribution != "Fedora"
   block:
     - name: "Check current crypto policy"
       ansible.builtin.command:
