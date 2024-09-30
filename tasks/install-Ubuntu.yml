@@ -8,6 +8,12 @@
     cache_valid_time: 3600
     state: present
 
+- name: "Ensure snapd service is started and enabled"
+  ansible.builtin.systemd:
+    name: snapd
+    state: started
+    enabled: true
+
 - name: "Ensure amazon-ssm-agent is installed (snap)"
   community.general.snap:
     name: amazon-ssm-agent
