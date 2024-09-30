@@ -1,0 +1,8 @@
+---
+- name: "Test"
+  hosts: all
+  vars:
+    amazon_ssm_agent_ec2_check_bypass: true
+  gather_facts: false
+  roles:
+    - "../../ansible-role-amazon_ssm_agent"

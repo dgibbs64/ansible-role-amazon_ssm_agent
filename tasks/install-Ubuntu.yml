@@ -18,9 +18,11 @@
 - name: "Flush handlers"
   ansible.builtin.meta: flush_handlers
 
+# Cant run on molecule as snap not compatible with docker
 - name: "Ensure amazon-ssm-agent is installed (snap)"
   community.general.snap:
     name: amazon-ssm-agent
     state: present
     classic: true
   notify: "Enable amazon-ssm-agent snap"
+  tags: "molecule-notest"
