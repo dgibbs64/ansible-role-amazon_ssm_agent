@@ -17,6 +17,7 @@
     cmd: "update-crypto-policies --show"
   changed_when: false
   register: crypto_policy
+  when: ansible_distribution_major_version is version('9', '>=')
 
 - name: "Set crypto policy to DEFAULT:SHA1 if not set"
   ansible.builtin.command:
