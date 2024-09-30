@@ -1,0 +1,9 @@
+---
+- name: "Converge"
+  hosts: all
+  gather_facts: false
+  become: false
+  vars:
+    amazon_ssm_agent_state: absent
+  roles:
+    - role: "dgibbs64.amazon_ssm_agent"

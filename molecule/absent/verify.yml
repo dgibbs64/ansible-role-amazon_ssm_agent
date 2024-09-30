@@ -1,0 +1,15 @@
+---
+- name: "Verify"
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: "Check if /tmp/unsupported_distro file exists"
+      ansible.builtin.stat:
+        path: "/tmp/unsupported_distro"
+      register: unsupported_distro_file
+
+    - name: "Verify"
+      when: not unsupported_distro_file.stat.exists
+      block:
+        - name: "Get service facts"
+          ansible.builtin.service_facts:
