@@ -13,3 +13,7 @@
     name: snap.amazon-ssm-agent.amazon-ssm-agent.service
     enabled: true
     state: started
+
+- name: "Wait for 10 seconds"
+  ansible.builtin.pause:
+    seconds: 10
