@@ -14,6 +14,11 @@
     state: started
     enabled: true
 
+- name: "Wait for 10 seconds if snapd service is enabled"
+  ansible.builtin.pause:
+    seconds: 10
+  when: ansible_facts.services['snapd'].status == 'running'
+
 - name: "Ensure amazon-ssm-agent is installed (snap)"
   community.general.snap:
     name: amazon-ssm-agent
