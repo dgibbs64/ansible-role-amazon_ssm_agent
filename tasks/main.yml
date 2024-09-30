@@ -26,5 +26,3 @@
     - name: "Install (RedHat Family)"
       ansible.builtin.include_tasks: install-RedHat.yml
       when: ansible_os_family == "RedHat"
-
-
