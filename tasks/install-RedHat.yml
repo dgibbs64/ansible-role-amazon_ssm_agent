@@ -23,7 +23,7 @@
   ansible.builtin.command:
     cmd: "update-crypto-policies --set DEFAULT:SHA1"
   changed_when: true
-  when: "'DEFAULT:SHA1' not in crypto_policy.stdout"
+  when: crypto_policy is defined and "'DEFAULT:SHA1' not in crypto_policy.stdout"
 
 - name: "Copy amazon-ssm-agent GPG key to target machine"
   ansible.builtin.copy:
