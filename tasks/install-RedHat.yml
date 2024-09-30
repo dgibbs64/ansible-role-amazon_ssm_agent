@@ -12,18 +12,19 @@
   ansible.builtin.set_fact:
     url_architecture: "{{ ('amd64' if ansible_architecture == 'x86_64' else 'arm64' if ansible_architecture == 'aarch64' else 'unknown') | string | trim }}"
 
-- name: "Check current crypto policy"
-  ansible.builtin.command:
-    cmd: "update-crypto-policies --show"
-  changed_when: false
-  register: crypto_policy
-  when: ansible_distribution_major_version is version('9', '>=') and ansible_distribution != "Amazon" and ansible_distribution_version != "2023"
+- block:
+    - name: "Check current crypto policy"
+      ansible.builtin.command:
+        cmd: "update-crypto-policies --show"
+      changed_when: false
+      register: crypto_policy
 
-- name: "Set crypto policy to DEFAULT:SHA1 if not set"
-  ansible.builtin.command:
-    cmd: "update-crypto-policies --set DEFAULT:SHA1"
-  changed_when: true
-  when: crypto_policy is defined and "'DEFAULT:SHA1' not in crypto_policy.stdout"
+    - name: "Set crypto policy to DEFAULT:SHA1 if not set"
+      ansible.builtin.command:
+        cmd: "update-crypto-policies --set DEFAULT:SHA1"
+      changed_when: true
+      when: crypto_policy is defined and "'DEFAULT:SHA1' not in crypto_policy.stdout"
+  when: ansible_distribution_major_version is version('9', '>=') and ansible_distribution != "Amazon" and ansible_distribution_version != "2023"
 
 - name: "Copy amazon-ssm-agent GPG key to target machine"
   ansible.builtin.copy:
