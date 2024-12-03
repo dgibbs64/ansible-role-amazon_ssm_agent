@@ -3,3 +3,4 @@
 
 # Amazon SSM Agent state present|absent
 amazon_ssm_agent_state: "present"
+amazon_ssm_agent_force_install: false
