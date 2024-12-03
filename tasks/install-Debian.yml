@@ -4,10 +4,6 @@
     name: "python3"
     state: "present"
 
-- name: "Gather installed package facts"
-  ansible.builtin.package_facts:
-    manager: auto
-
 - name: "Set URL architecture"
   ansible.builtin.set_fact:
     url_architecture: "{{ ('amd64' if ansible_architecture == 'x86_64' else 'arm64' if ansible_architecture == 'aarch64' else 'unknown') | string | trim }}"
