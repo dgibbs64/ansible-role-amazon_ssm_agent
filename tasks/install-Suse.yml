@@ -1,5 +1,5 @@
 ---
 - name: "Ensure amazon-ssm-agent is installed"
-  ansible.general.zypper:
+  community.general.zypper:
     name: "amazon-ssm-agent"
     state: "present"
