@@ -1,4 +1,7 @@
 ---
+- name: "Gather package facts"
+  ansible.builtin.package_facts:
+
 - name: "Ensure Python 3 is installed"
   ansible.builtin.apt:
     name: "python3"

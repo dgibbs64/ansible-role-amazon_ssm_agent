@@ -1,5 +1,6 @@
 ---
-# tasks file for installing software on Ubuntu using snaps
+- name: "Gather package facts"
+  ansible.builtin.package_facts:
 
 - name: "Ensure snapd is installed"
   ansible.builtin.apt:

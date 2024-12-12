@@ -20,12 +20,3 @@
     mode: "0644"
   no_log: true
   when: distro_supported is false and "molecule-notest" in ansible_skip_tags
-
-- name: "Skip role if distro or architecture is not supported"
-  ansible.builtin.meta: end_host
-  when: distro_supported is false
-
-- name: "Check if running on Amazon EC2 or bypass is enabled or running molecule"
-  ansible.builtin.meta: end_play
-  when: ansible_system_vendor != "Amazon EC2" and not amazon_ssm_agent_ec2_check_bypass
-  tags: "molecule-notest"
