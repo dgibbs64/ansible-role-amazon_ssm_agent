@@ -43,7 +43,9 @@ To customize the configuration, you can set the following variables:
 
 ```yaml
 # Agent state present|absent
-amazon_ssm_agent_state: present
+amazon_ssm_agent_state: "present"
+# Force install of SSM Agent
+amazon_ssm_agent_force_install: false
 ```
 
 ## Dependencies
