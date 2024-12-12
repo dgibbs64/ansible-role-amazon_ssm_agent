@@ -1,6 +1,6 @@
 # amazon_ssm_agent
 
-An [Ansible](https://www.ansible.com) role that installs and configures the <a href="https://docs.aws.amazon.com/systems-manager/">Amazon SSM Agent</a> for managing EC2 instances.
+An [Ansible](https://www.ansible.com) role that ensures <a href="https://docs.aws.amazon.com/systems-manager/">Amazon SSM Agent</a> is installed on EC2 instances.
 
 <p align="center">
 <a href="https://app.codacy.com/gh/dgibbs64/ansible-role-amazon_ssm_agent"><img src="https://img.shields.io/codacy/grade/1a892d499efd4dabb73beffa8d64ed01?logo=codacy&style=flat-square" alt="Codacy grade"></a>
