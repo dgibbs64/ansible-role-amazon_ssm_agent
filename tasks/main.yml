@@ -27,6 +27,11 @@
       ansible.builtin.include_tasks: remove.yml
       when: amazon_ssm_agent_state == "absent" and ansible_ec2_instance_id is defined
 
+    - name: "Install required Python libraries for package management"
+      ansible.builtin.package:
+        name: python3-rpm
+      when: ansible_os_family == "Suse"
+
     - name: "Gather package facts"
       ansible.builtin.package_facts:
 
