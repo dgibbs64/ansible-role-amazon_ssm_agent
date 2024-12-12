@@ -10,13 +10,14 @@
 
 - name: "Ensure ssm-agent is installed (apt)"
   ansible.builtin.apt:
-    deb: "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_{{ url_architecture }}/amazon-ssm-agent.deb"
+    deb: "https://s3.{{ ansible_ec2_placement_region }}.amazonaws.com/amazon-ssm-{{ ansible_ec2_placement_region }}/latest/debian_{{ url_architecture }}/amazon-ssm-agent.deb"
     state: present
     update_cache: true
     cache_valid_time: 3600
-  when: "'amazon-ssm-agent' not in ansible_facts.packages"
   notify:
     - "Enable amazon-ssm-agent"
 
 - name: "Flush handlers"
   ansible.builtin.meta: flush_handlers
+
+

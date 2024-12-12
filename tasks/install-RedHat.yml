@@ -28,23 +28,17 @@
     src: "amazon-ssm-agent.gpg"
     dest: "/tmp/amazon-ssm-agent.gpg"
     mode: "0644"
-  when:
-    - "'amazon-ssm-agent' not in ansible_facts.packages"
 
 - name: "Import amazon-ssm-agent GPG key"
   ansible.builtin.rpm_key:
     state: present
     key: "/tmp/amazon-ssm-agent.gpg"
-  when:
-    - "'amazon-ssm-agent' not in ansible_facts.packages"
 
 - name: "Ensure amazon-ssm-agent is installed from URL"
   ansible.builtin.dnf:
     name: "https://s3.{{ ansible_ec2_placement_region }}.amazonaws.com/amazon-ssm-{{ ansible_ec2_placement_region }}/latest/linux_{{ url_architecture }}/amazon-ssm-agent.rpm"
     state: present
-  when:
-    - "'amazon-ssm-agent' not in ansible_facts.packages"
-    - url_architecture != "unknown"
+  when: url_architecture != "unknown"
 
 - name: "Ensure amazon-ssm-agent is installed"
   ansible.builtin.dnf:
@@ -52,8 +46,6 @@
     state: "present"
   notify:
     - "Enable amazon-ssm-agent"
-  when:
-    - "'amazon-ssm-agent' not in ansible_facts.packages"
 
 - name: "Flush handlers"
   ansible.builtin.meta: flush_handlers
