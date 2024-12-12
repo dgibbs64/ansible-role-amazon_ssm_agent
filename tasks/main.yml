@@ -7,7 +7,16 @@
 
 - name: "Gather AWS EC2 facts"
   amazon.aws.ec2_metadata_facts:
-  when: not ansible_facts.get('ec2_metadata', False)
+  when: not ansible_facts.get('ec2_metadata', False) and molecule is not defined
+
+# Molecule only to simulate amazon.aws.ec2_metadata_facts
+- name: "Simulate EC2 metadata facts for Molecule"
+  ansible.builtin.set_fact:
+    ec2_metadata:
+      instance_id: "i-1234567890abcdef0"
+      instance_type: "t2.micro"
+      availability_zone: "us-west-2a"
+  when: molecule is defined and molecule
 
 - name: "Distro Requirements"
   ansible.builtin.include_tasks: distro-requirements.yml
