@@ -41,3 +41,7 @@
     - name: "Install (RedHat Family)"
       ansible.builtin.include_tasks: install-RedHat.yml
       when: ansible_os_family == "RedHat" and amazon_ssm_agent_state == "present" and ('amazon-ssm-agent' not in ansible_facts.packages or amazon_ssm_agent_force_install) and ansible_ec2_instance_id is defined
+
+    - name: "Install (Suse)"
+      ansible.builtin.include_tasks: install-Suse.yml
+      when: ansible_os_family == "Suse" and amazon_ssm_agent_state == "present" and ('amazon-ssm-agent' not in ansible_facts.packages or amazon_ssm_agent_force_install) and ansible_ec2_instance_id is defined
