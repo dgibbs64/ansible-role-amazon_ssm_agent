@@ -12,7 +12,7 @@
     state: started
     enabled: true
   notify: "Wait for 10 seconds"
-  tags: "molecule-notest"
+  when: "'molecule-notest' in ansible_skip_tags"
 
 - name: "Flush handlers"
   ansible.builtin.meta: flush_handlers
@@ -24,4 +24,4 @@
     state: present
     classic: true
   notify: "Enable amazon-ssm-agent snap"
-  tags: "molecule-notest"
+  when: "'molecule-notest' in ansible_skip_tags"
