@@ -7,7 +7,7 @@
 
 - name: "Gather AWS EC2 facts"
   amazon.aws.ec2_metadata_facts:
-  when: not ansible_facts.get('ec2_metadata', False) and molecule is not defined
+  when: not ansible_facts.get('ec2_metadata', False) and "molecule-notest" in ansible_skip_tags
 
 # Molecule only to simulate amazon.aws.ec2_metadata_facts
 - name: "Simulate EC2 metadata facts for Molecule"
