@@ -3,19 +3,19 @@
   ansible.builtin.apt:
     name: amazon-ssm-agent
     state: absent
-  when: ansible_facts['os_family'] == "Debian" and not "'molecule-notest' in ansible_skip_tags"
+  when: ansible_facts['os_family'] == "Debian" and ansible_facts['distribution'] != "Ubuntu"
   tags: amazon_ssm_agent_remove
 
 - name: Remove amazon-ssm-agent (dnf)
   ansible.builtin.dnf:
     name: amazon-ssm-agent
     state: absent
-  when: ansible_facts['os_family'] == "RedHat" and ansible_facts['distribution_major_version'] >= "8" and not "'molecule-notest' in ansible_skip_tags"
+  when: ansible_facts['os_family'] == "RedHat" and ansible_facts['distribution_major_version'] >= "8"
   tags: amazon_ssm_agent_remove
 
 - name: Remove amazon-ssm-agent (snap)
   community.general.snap:
     name: amazon-ssm-agent
     state: absent
-  when: ansible_facts['distribution'] == "Ubuntu"
+  when: ansible_facts['distribution'] == "Ubuntu" and not "'molecule-notest' in ansible_skip_tags"
   tags: amazon_ssm_agent_remove
