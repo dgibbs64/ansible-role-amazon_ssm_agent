@@ -15,7 +15,7 @@ An [Ansible](https://www.ansible.com) role that ensures <a href="https://docs.aw
 
 > note: For Ubuntu AMI's, the Amazon SSM Agent is already installed by default. However this role will still ensure the agent is installed and running.
 
-This role can only check if Amazon SSM Agent is installed and install it if not. Update functionality is handled by AWS Systems Manager. Amazon SSM Agent can be auto updated by enabling *Auto update SSM Agent* in `AWS Systems Manager > Fleet Manager > Settings > Agent auto update > Auto update SSM Agent`. Full guide found <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent-automatic-updates.html">here</a>.
+This role can only check if Amazon SSM Agent is installed and install it if not. Update functionality is handled by AWS Systems Manager. Amazon SSM Agent can be auto updated by enabling _Auto update SSM Agent_ in `AWS Systems Manager > Fleet Manager > Settings > Agent auto update > Auto update SSM Agent`. Full guide found <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent-automatic-updates.html">here</a>.
 
 This role uses <a href="https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_metadata_facts_module.html">amazon.aws.ec2_metadata_facts</a>. Please ensure the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">EC2 metadata endpoint</a> is setup on your control node.
 

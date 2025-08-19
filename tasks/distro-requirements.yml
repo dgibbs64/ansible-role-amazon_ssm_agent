@@ -1,9 +1,10 @@
 ---
 - name: "Check if distro or architecture is supported"
   ansible.builtin.set_fact:
-    distro_supported: "{{ (supported_distros | selectattr('name', 'equalto', ansible_distribution) | list | length > 0) and
-                         (ansible_distribution_version is version(supported_distros | selectattr('name', 'equalto', ansible_distribution) | map(attribute='min_version') | first, '>=')) and
-                         (ansible_architecture in (supported_distros | selectattr('name', 'equalto', ansible_distribution) | map(attribute='supported_architectures', default=[]) | first)) }}"
+    distro_supported:
+      "{{ (supported_distros | selectattr('name', 'equalto', ansible_distribution) | list | length > 0) and
+      (ansible_distribution_version is version(supported_distros | selectattr('name', 'equalto', ansible_distribution) | map(attribute='min_version') | first, '>=')) and
+      (ansible_architecture in (supported_distros | selectattr('name', 'equalto', ansible_distribution) | map(attribute='supported_architectures', default=[]) | first)) }}"
 
 - name: "Display if distro or architecture is not supported"
   ansible.builtin.debug:
