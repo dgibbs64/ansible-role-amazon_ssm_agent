@@ -7,11 +7,11 @@
 
 - name: "Display ansible_vendor_board fact"
   ansible.builtin.debug:
-    msg: "Vendor board: {{ ansible_facts['vendor_board'] }}"
+    msg: "Vendor board: {{ ansible_facts.get('vendor_board', 'Unknown') }}"
 
 - name: "Gather AWS EC2 facts"
   amazon.aws.ec2_metadata_facts:
-  when: not ansible_facts.get('ec2_metadata', False) and "molecule-notest" not in ansible_skip_tags and ansible_facts['vendor_board'] == "Amazon EC2"
+  when: not ansible_facts.get('ec2_metadata', False) and "molecule-notest" not in ansible_skip_tags and ansible_facts.get('vendor_board', 'Unknown') == "Amazon EC2"
 
 # Molecule only to simulate amazon.aws.ec2_metadata_facts
 - name: "Simulate EC2 metadata facts for Molecule"
