@@ -35,12 +35,16 @@
     key: "/tmp/amazon-ssm-agent.gpg"
 
 - name: "Ensure amazon-ssm-agent is installed from URL"
+  tags:
+    - molecule-notest
   ansible.builtin.dnf:
     name: "https://s3.{{ ansible_ec2_placement_region }}.amazonaws.com/amazon-ssm-{{ ansible_ec2_placement_region }}/latest/linux_{{ url_architecture }}/amazon-ssm-agent.rpm"
     state: present
   when: url_architecture != "unknown"
 
 - name: "Ensure amazon-ssm-agent is installed"
+  tags:
+    - molecule-notest
   ansible.builtin.dnf:
     name: "amazon-ssm-agent"
     state: "present"
