@@ -6,7 +6,7 @@
   when: ansible_facts|default({}) == {}
 
 - name: "Display ansible_vendor_board fact"
-  debug:
+  ansible.builtin.debug:
     msg: "Vendor board: {{ ansible_facts['vendor_board'] }}"
 
 - name: "Gather AWS EC2 facts"
