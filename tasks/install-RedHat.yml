@@ -24,12 +24,16 @@
       changed_when: "'DEFAULT:SHA1' not in crypto_policy.stdout"
 
 - name: "Copy amazon-ssm-agent GPG key to target machine"
+  tags:
+    - molecule-notest
   ansible.builtin.copy:
     src: "amazon-ssm-agent.gpg"
     dest: "/tmp/amazon-ssm-agent.gpg"
     mode: "0644"
 
 - name: "Import amazon-ssm-agent GPG key"
+  tags:
+    - molecule-notest
   ansible.builtin.rpm_key:
     state: present
     key: "/tmp/amazon-ssm-agent.gpg"
